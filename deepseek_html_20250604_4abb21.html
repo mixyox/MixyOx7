@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MixyOx - Premium Modded Apps</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0a2d, #1a1a4e, #16163e);
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 138, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(229, 46, 113, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 20%, rgba(34, 193, 195, 0.1) 0%, transparent 40%);
+            animation: bgPulse 15s infinite alternate;
+        }
+        
+        @keyframes bgPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+        
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            top: 10%;
+            left: 10%;
+            animation-duration: 20s;
+        }
+        
+        .shape:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(45deg, #22c1c3, #2e71e5);
+            bottom: 10%;
+            right: 10%;
+            animation-duration: 25s;
+        }
+        
+        .shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #00c853, #64dd17);
+            top: 50%;
+            left: 20%;
+            animation-duration: 15s;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, 100px) rotate(90deg); }
+            50% { transform: translate(100px, 0) rotate(180deg); }
+            75% { transform: translate(50px, -100px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            animation: fadeIn 1s ease;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .logo {
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff8a00, #e52e71, #22c1c3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.3);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71, #22c1c3);
+            border-radius: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-top: 15px;
+            color: #22c1c3;
+        }
+        
+        /* Hosting Instructions */
+        .instructions-container {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 3;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .instructions-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+        }
+        
+        .step {
+            background: rgba(30, 30, 46, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #22c1c3, #2e71e5);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .step-title {
+            display: inline-block;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .step-content {
+            margin-left: 40px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .hosting-link {
+            color: #22c1c3;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .hosting-link:hover {
+            text-decoration: underline;
+        }
+        
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            background: #333;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Download Button */
+        .download-site-btn {
+            background: linear-gradient(45deg, #00c853, #64dd17);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 300px;
+            margin: 30px auto;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-site-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 7px 20px rgba(0,200,83,0.4);
+        }
+        
+        .download-site-btn i {
+            margin-right: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px 20px;
+            opacity: 0.8;
+            font-size: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+            position: relative;
+            z-index: 3;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: floatLogo 4s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3.2rem;
+            }
+            .instructions-title {
+                font-size: 1.8rem;
+            }
+            .step {
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2.8rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+                letter-spacing: 3px;
+            }
+            .instructions-title {
+                font-size: 1.6rem;
+            }
+            .download-site-btn {
+                width: 100%;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="logo floating">MixyOx</div>
+            <div class="subtitle">Website Hosting Instructions</div>
+        </header>
+        
+        <div class="instructions-container">
+            <h2 class="instructions-title">How to Host Your Website</h2>
+            
+            <div class="step">
+                <div>
+                    <span class="step-number">1</span>
+                    <span class="step-title">Download the HTML File</span>
+                </div>
+                <p class="step-content">First, you need to save the HTML file to your device.</p>
+            </div>
+            
+            <div class="step">
+                <div>
+                    <span class="step-number">2</span>
+                    <span class="step-title">Choose a Web Hosting Service</span>
+                </div>
+                <p class="step-content">Select one of these free hosting services:</p>
+                <p class="step-content">
+                    <a href="https://pages.github.com/" class="hosting-link" target="_blank">GitHub Pages</a>
+                    <a href="https://www.netlify.com/" class="hosting-link" target="_blank">Netlify</a>
+                    <a href="https://vercel.com/" class="hosting-link" target="_blank">Vercel</a>
+                    <a href="https://www.000webhost.com/" class="hosting-link" target="_blank">000webhost</a>
+                </p>
+            </div>
+            
+            <div class="step">
+                <div>
+                    <span class="step-number">3</span>
+                    <span class="step-title">Upload Your Website</span>
+                </div>
+                <p class="step-content">Follow the hosting provider's instructions to upload your HTML file. Most services let you drag and drop your file to deploy.</p>
+            </div>
+            
+            <div class="step">
+                <div>
+                    <span class="step-number">4</span>
+                    <span class="step-title">Access Your Live Website</span>
+                </div>
+                <p class="step-content">After uploading, the hosting service will provide you with a public URL (like https://your-site.netlify.app). This is your new website address!</p>
+            </div>
+            
+            <div class="qr-code">
+                SCAN THIS QR CODE<br>TO ACCESS HOSTING GUIDE
+            </div>
+            
+            <a href="#" class="download-site-btn" id="downloadHtml">
+                <i class="fas fa-download"></i> Download HTML File
+            </a>
+        </div>
+        
+        <footer>
+            <p>© 2025 MixyOx - All Rights Reserved</p>
+            <p>Once hosted, your website will have a public URL like: https://your-site.example.com</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create a Blob with the HTML content for download
+            const downloadHtml = document.getElementById('downloadHtml');
+            
+            downloadHtml.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create a Blob with the HTML content
+                const htmlContent = `<!DOCTYPE html>
+<html>
+<head>
+<title>Your Website</title>
+</head>
+<body>
+<h1>Your hosted website will appear here!</h1>
+<p>After uploading this file to a hosting service.</p>
+</body>
+</html>`;
+                
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                // Create a temporary link to trigger download
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'mixyox-website.html';
+                document.body.appendChild(a);
+                a.click();
+                
+                // Clean up
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
